@@ -88,7 +88,7 @@ def buy_card_view(request, prod_num=0):
             prod_num = 1
         num_cards = len(Card.objects.filter(user=request.user))
         # Generate a card here, based on amount sent. Need binary for this.
-        card_file_path = f"/tmp/addedcard_{request.user.id}_{num_cards + 1}.gftcrd'"
+        card_file_path = f"/tmp/addedcard_{request.user.id}_{num_cards + 1}.gftcrd'"# XXX path manipulation
         card_file_name = "newcard.gftcrd"
         # Use binary to write card here.
         # Create card record with data.
@@ -147,7 +147,7 @@ def gift_card_view(request, prod_num=0):
             return render(request, f"gift.html", context)
         context['user'] = user_account
         num_cards = len(Card.objects.filter(user=user_account))
-        card_file_path = f"/tmp/addedcard_{user_account.id}_{num_cards + 1}.gftcrd'"
+        card_file_path = f"/tmp/addedcard_{user_account.id}_{num_cards + 1}.gftcrd'" # XXX path manipulation
         extras.write_card_data(card_file_path)
         prod = Product.objects.get(product_id=prod_num)
         card_file = open(card_file_path, 'rb')
@@ -175,9 +175,9 @@ def use_card_view(request):
         card_file_data = request.FILES['card_data']
         card_fname = request.POST.get('card_fname', None)
         if card_fname is None or card_fname == '':
-            card_file_path = f'/tmp/newcard_{request.user.id}_parser.gftcrd'
+            card_file_path = f'/tmp/newcard_{request.user.id}_parser.gftcrd'# XXX path manipulation
         else:
-            card_file_path = f'/tmp/{card_fname}_{request.user.id}_parser.gftcrd'
+            card_file_path = f'/tmp/{card_fname}_{request.user.id}_parser.gftcrd'# XXX path manipulation
         card_data = extras.parse_card_data(card_file_data.read(), card_file_path)
         # check if we know about card.
         # KG: Where is this data coming from? RAW SQL usage with unkown
@@ -185,8 +185,8 @@ def use_card_view(request):
         print(card_data.strip())
         signature = json.loads(card_data)['records'][0]['signature']
         # signatures should be pretty unique, right?
-        card_query = Card.objects.raw('select id from LegacySite_card where data = \'%s\'' % signature)
-        user_cards = Card.objects.raw('select id, count(*) as count from LegacySite_card where LegacySite_card.user_id = %s' % str(request.user.id))
+        card_query = Card.objects.raw('select id from LegacySite_card where data = \'%s\'' % signature) # XXX sqli
+        user_cards = Card.objects.raw('select id, count(*) as count from LegacySite_card where LegacySite_card.user_id = %s' % str(request.user.id)) # XXX sqli
         card_query_string = ""
         for thing in card_query:
             # print cards as strings
@@ -194,9 +194,9 @@ def use_card_view(request):
         if len(card_query) is 0:
             # card not known, add it.
             if card_fname is not None:
-                card_file_path = f'/tmp/{card_fname}_{request.user.id}_{user_cards[0].count + 1}.gftcrd'
+                card_file_path = f'/tmp/{card_fname}_{request.user.id}_{user_cards[0].count + 1}.gftcrd' # XXX path manipulation
             else:
-                card_file_path = f'/tmp/newcard_{request.user.id}_{user_cards[0].count + 1}.gftcrd'
+                card_file_path = f'/tmp/newcard_{request.user.id}_{user_cards[0].count + 1}.gftcrd' # XXX path manipulation
             fp = open(card_file_path, 'w')
             fp.write(card_data)
             fp.close()
