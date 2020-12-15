@@ -22,6 +22,7 @@ def register_view(request):
     else:
         context = {'method':'POST'}
         uname = request.POST.get('uname', None)
+        print(uname+" is submitting a form!!!")
         pword = request.POST.get('pword', None)
         pword2 = request.POST.get('pword2', None)
         assert (None not in [uname, pword, pword2])
