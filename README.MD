@@ -19,4 +19,6 @@ Good luck!
 
 ## Running
 
-    pipenv run python ...
+    pushd src
+    pipenv run python manage.py runserver
+    popd
